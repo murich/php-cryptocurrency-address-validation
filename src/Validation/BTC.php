@@ -2,7 +2,6 @@
 
 namespace Murich\PhpCryptocurrencyAddressValidation\Validation;
 
-use Murich\PhpCryptocurrencyAddressValidation\AddressVersions;
 use Murich\PhpCryptocurrencyAddressValidation\Validation;
 
 class BTC extends Validation
