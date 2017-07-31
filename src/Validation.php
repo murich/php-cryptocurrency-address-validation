@@ -6,7 +6,7 @@ abstract class Validation
 {
     protected $address;
     protected $addressVersion;
-    protected $addressVersionByFirstChar;
+    protected $base58PrefixToHexVersion;
 
     public function __construct($address)
     {
@@ -40,7 +40,7 @@ abstract class Validation
         return strrev($return);
     }
 
-    protected static function decodeBase58($base58)
+    protected static function base58ToHex($base58)
     {
         $origbase58 = $base58;
 
@@ -106,7 +106,7 @@ abstract class Validation
 
     protected static function addressToHash160($addr)
     {
-        $addr = self::decodeBase58($addr);
+        $addr = self::base58ToHex($addr);
         $addr = substr($addr, 2, strlen($addr) - 10);
         return $addr;
     }
@@ -129,8 +129,8 @@ abstract class Validation
 
     protected function determineVersion()
     {
-        if (isset($this->addressVersionByFirstChar[$this->address[0]])) {
-            $this->addressVersion =  $this->addressVersionByFirstChar[$this->address[0]];
+        if (isset($this->base58PrefixToHexVersion[$this->address[0]])) {
+            $this->addressVersion =  $this->base58PrefixToHexVersion[$this->address[0]];
         }
     }
 
@@ -140,20 +140,20 @@ abstract class Validation
             return false;
         }
 
-        $address = self::decodeBase58($this->address);
-        if (strlen($address) != 50) {
+        $hexAddress = self::base58ToHex($this->address);
+        if (strlen($hexAddress) != 50) {
             return false;
         }
-        $version = substr($address, 0, 2);
+        $version = substr($hexAddress, 0, 2);
 
         if (!$this->validateVersion($version)) {
             return false;
         }
 
-        $check = substr($address, 0, strlen($address) - 8);
+        $check = substr($hexAddress, 0, strlen($hexAddress) - 8);
         $check = pack("H*", $check);
         $check = strtoupper(hash("sha256", hash("sha256", $check, true)));
         $check = substr($check, 0, 8);
-        return $check == substr($address, strlen($address) - 8);
+        return $check == substr($hexAddress, strlen($hexAddress) - 8);
     }
 }

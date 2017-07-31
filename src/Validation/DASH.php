@@ -4,11 +4,14 @@ namespace Murich\PhpCryptocurrencyAddressValidation\Validation;
 
 use Murich\PhpCryptocurrencyAddressValidation\Validation;
 
-class BTC extends Validation
+class DASH extends Validation
 {
-    // more info at https://en.bitcoin.it/wiki/List_of_address_prefixes
+    const VERSION_P2PKH = '4C';
+    const VERSION_P2SH = '10';
+
     protected $base58PrefixToHexVersion = [
-        '1' => '00',
-        '3' => '05'
+        'X' => self::VERSION_P2PKH,
+        '7' => self::VERSION_P2SH
     ];
+
 }

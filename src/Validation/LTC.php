@@ -10,7 +10,7 @@ class LTC extends Validation
 
     protected $deprecatedAllowed = false;
 
-    protected $addressVersionByFirstChar = [
+    protected $base58PrefixToHexVersion = [
         'L' => '30',
         'M' => '31',
         '3' => self::DEPRECATED_ADDRESS_VERSION // deprecated for litecoin, should not be allowed for new user's inputs
