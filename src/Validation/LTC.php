@@ -6,14 +6,14 @@ use Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 
 class LTC extends Validation
 {
-    const DEPRECATED_ADDRESS_VERSIONS = [31];
+    const DEPRECATED_ADDRESS_VERSIONS = ['31'];
 
     protected $deprecatedAllowed = false;
 
     protected $base58PrefixToHexVersion = [
-        'L' => 30,
-        'M' => 31,
-        '3' => 5
+        'L' => '30',
+        'M' => '31',
+        '3' => '05'
     ];
 
     protected function validateVersion($version)
