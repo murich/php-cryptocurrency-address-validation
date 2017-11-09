@@ -7,9 +7,9 @@ One day I will add other crypto currencies. Or how about you? :)
 
 
 ```php
-use Merkeleon\PhpCryptocurrencyAddressValidation\Validation\BTC as BTCValidator;
+use Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 
-$validator = new BTCValidator('1QLbGuc3WGKKKpLs4pBp9H6jiQ2MgPkXRp');
-var_dump($validator->validate());
+$validator = Validation::make('BTC');
+var_dump($validator->validate('1QLbGuc3WGKKKpLs4pBp9H6jiQ2MgPkXRp'));
 
 ```
