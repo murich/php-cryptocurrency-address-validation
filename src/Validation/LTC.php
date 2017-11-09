@@ -6,7 +6,7 @@ use Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 
 class LTC extends Validation
 {
-    const DEPRECATED_ADDRESS_VERSIONS = ['31'];
+    const DEPRECATED_ADDRESS_VERSIONS = ['31', '03'];
 
     protected $deprecatedAllowed = false;
 
