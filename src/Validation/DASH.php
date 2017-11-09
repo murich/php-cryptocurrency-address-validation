@@ -1,8 +1,8 @@
 <?php
 
-namespace Murich\PhpCryptocurrencyAddressValidation\Validation;
+namespace Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 
-use Murich\PhpCryptocurrencyAddressValidation\Validation;
+use Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 
 class DASH extends Validation
 {

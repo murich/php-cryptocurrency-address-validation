@@ -1,6 +1,6 @@
 <?php
 
-use Murich\PhpCryptocurrencyAddressValidation\Validation\BTC;
+use Merkeleon\PhpCryptocurrencyAddressValidation\Validation\BTC;
 
 class BTCTest extends PHPUnit_Framework_TestCase
 {

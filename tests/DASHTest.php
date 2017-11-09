@@ -1,6 +1,6 @@
 <?php
 
-use Murich\PhpCryptocurrencyAddressValidation\Validation\DASH;
+use Merkeleon\PhpCryptocurrencyAddressValidation\Validation\DASH;
 
 class DASHTest extends PHPUnit_Framework_TestCase
 {

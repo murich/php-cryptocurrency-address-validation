@@ -1,24 +1,24 @@
 <?php
 
-namespace Murich\PhpCryptocurrencyAddressValidation\Validation;
+namespace Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 
-use Murich\PhpCryptocurrencyAddressValidation\Validation;
+use Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 
 class LTC extends Validation
 {
-    const DEPRECATED_ADDRESS_VERSION = '05';
+    const DEPRECATED_ADDRESS_VERSIONS = [31];
 
     protected $deprecatedAllowed = false;
 
     protected $base58PrefixToHexVersion = [
-        'L' => '30',
-        'M' => '31',
-        '3' => self::DEPRECATED_ADDRESS_VERSION // deprecated for litecoin, should not be allowed for new user's inputs
+        'L' => 30,
+        'M' => 31,
+        '3' => 5
     ];
 
     protected function validateVersion($version)
     {
-        if ($this->addressVersion == self::DEPRECATED_ADDRESS_VERSION && !$this->deprecatedAllowed) {
+        if (!$this->deprecatedAllowed && !in_array($this->addressVersion, self::DEPRECATED_ADDRESS_VERSIONS)) {
             return false;
         }
         return hexdec($version) == hexdec($this->addressVersion);
