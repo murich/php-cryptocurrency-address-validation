@@ -1,6 +1,6 @@
 <?php
 
-use Murich\PhpCryptocurrencyAddressValidation\Validation\LTC;
+use Merkeleon\PhpCryptocurrencyAddressValidation\Validation\LTC;
 
 class LTCTest extends PHPUnit_Framework_TestCase
 {
