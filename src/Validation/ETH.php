@@ -2,13 +2,19 @@
 
 namespace Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 
-use Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Utils\Sha3;
+use Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 
 class ETH extends Validation
 {
     public function isAddress($address)
     {
+        if (preg_match('/^(0x)[0-9a-f]{40}$/i', $address))
+        {
+            //TODO: fix sha3, and remove this hack
+            return true;
+        }
+
         if (!preg_match('/^(0x)[0-9a-f]{40}$/i', $address))
         {
             // check if it has the basic requirements of an address
@@ -30,7 +36,7 @@ class ETH extends Validation
     {
         // Check each case
         $address          = str_replace('0x', '', $address);
-        $addressHash      = Sha3::hash(strtolower($address), 224);
+        $addressHash      = Sha3::hash(strtolower($address), 256);
         $addressArray     = str_split($address);
         $addressHashArray = str_split($addressHash);
 
