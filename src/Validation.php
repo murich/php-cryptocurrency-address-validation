@@ -2,11 +2,14 @@
 
 namespace Murich\PhpCryptocurrencyAddressValidation;
 
-abstract class Validation
+use Murich\PhpCryptocurrencyAddressValidation\Validation\ValidationInterface;
+
+abstract class Validation implements ValidationInterface
 {
     protected $address;
     protected $addressVersion;
     protected $base58PrefixToHexVersion;
+    protected $length = 50;
 
     public function __construct($address)
     {
@@ -134,14 +137,15 @@ abstract class Validation
         }
     }
 
-    function validate()
+    public function validate()
     {
         if (is_null($this->addressVersion)) {
             return false;
         }
 
         $hexAddress = self::base58ToHex($this->address);
-        if (strlen($hexAddress) != 50) {
+
+        if (strlen($hexAddress) != $this->length) {
             return false;
         }
         $version = substr($hexAddress, 0, 2);
