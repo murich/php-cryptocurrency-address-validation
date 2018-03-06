@@ -13,7 +13,7 @@ class LTC extends Validation
 
     protected $base58PrefixToHexVersion = [
         'L' => '30',
-        'M' => '31',
+        'M' => '32',
         '3' => '05'
     ];
 
