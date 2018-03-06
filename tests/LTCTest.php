@@ -1,35 +1,33 @@
 <?php
 
+namespace Tests;
+
+use Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Validation\LTC;
+use PHPUnit_Framework_TestCase;
 
 class LTCTest extends PHPUnit_Framework_TestCase
 {
     public function testValidator()
     {
-        /*
-         * There are many addresses in Litecoin blockchain which starts with 3.
-         * However, addresses starting with 3 are deprecated.
-         * Litecoin multisig addess should start with M.
-         */
-
         $testData = [
             ['1QLbGuc3WGKKKpLs4pBp9H6jiQ2MgPkXRp', false],
-            ['3CDJNfdWX8m2NwuGUV3nhXHXEeLygMXoAj', false],
+            ['3CDJNfdWX8m2NwuGUV3nhXHXEeLygMXoAj', true],
             ['LbTjMGN7gELw4KbeyQf6cTCq859hD18guE', true],
-            // @todo: add test case with M address
+            ['MJRSgZ3UUFcTBTBAaN38XAXvZLwRe8WVw7', true],
         ];
 
         foreach ($testData as $row) {
-            $validator = new LTC($row[0]);
-            $this->assertEquals($row[1], $validator->validate());
+            $validator = Validation::make('LTC');
+            $this->assertEquals($row[1], $validator->validate($row[0]));
         }
 
     }
 
     public function testLitecoinDeprecatedMultisigAddress()
     {
-        $validator = new LTC('3CDJNfdWX8m2NwuGUV3nhXHXEeLygMXoAj');
+        $validator = Validation::make('LTC');
         $validator->setDeprecatedAllowed(true);
-        $this->assertEquals(true, $validator->validate());
+        $this->assertEquals(true, $validator->validate('3CDJNfdWX8m2NwuGUV3nhXHXEeLygMXoAj'));
     }
 }

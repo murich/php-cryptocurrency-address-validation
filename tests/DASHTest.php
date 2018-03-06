@@ -1,6 +1,10 @@
 <?php
 
+namespace Tests;
+
+use Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Validation\DASH;
+use PHPUnit_Framework_TestCase;
 
 class DASHTest extends PHPUnit_Framework_TestCase
 {
@@ -20,8 +24,8 @@ class DASHTest extends PHPUnit_Framework_TestCase
         ];
 
         foreach ($testData as $row) {
-            $validator = new DASH($row[0]);
-            $this->assertEquals($row[1], $validator->validate());
+            $validator = Validation::make('DASH');
+            $this->assertEquals($row[1], $validator->validate($row[0]));
         }
 
     }

@@ -1,6 +1,10 @@
 <?php
 
+namespace Tests;
+
+use Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Validation\BTC;
+use PHPUnit_Framework_TestCase;
 
 class BTCTest extends PHPUnit_Framework_TestCase
 {
@@ -14,8 +18,8 @@ class BTCTest extends PHPUnit_Framework_TestCase
         ];
 
         foreach ($testData as $row) {
-            $validator = new BTC($row[0]);
-            $this->assertEquals($row[1], $validator->validate());
+            $validator = Validation::make('BTC');
+            $this->assertEquals($row[1], $validator->validate($row[0]));
         }
 
     }
