@@ -9,6 +9,8 @@ abstract class Validation
     protected $address;
     protected $addressVersion;
     protected $base58PrefixToHexVersion;
+    protected $length  = 50;
+    protected $lengths = [];
 
     protected function __construct()
     {
@@ -168,7 +170,13 @@ abstract class Validation
         }
 
         $hexAddress = self::base58ToHex($this->address);
-        if (strlen($hexAddress) != 50)
+        $length     = $this->length;
+        if (!empty($this->lengths[$this->address[0]]))
+        {
+            $length = $this->lengths[$this->address[0]];
+        }
+
+        if (strlen($hexAddress) != $length)
         {
             return false;
         }
