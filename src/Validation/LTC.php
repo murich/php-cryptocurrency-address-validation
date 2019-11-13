@@ -2,6 +2,8 @@
 
 namespace Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 
+use Merkeleon\PhpCryptocurrencyAddressValidation\Utils\Bech32Decoder;
+use Merkeleon\PhpCryptocurrencyAddressValidation\Utils\Bech32Exception;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 
 class LTC extends Validation
@@ -16,6 +18,20 @@ class LTC extends Validation
         'M' => '32',
         '3' => '05'
     ];
+
+    public function validate($address)
+    {
+        $valid = parent::validate($address);
+
+        if (!$valid) {
+            // maybe it's a bech32 address
+            try {
+                $valid = is_array($decoded = Bech32Decoder::decodeRaw($address)) && 'ltc' === $decoded[0];
+            } catch (Bech32Exception $exception) {}
+        }
+
+        return $valid;
+    }
 
     protected function validateVersion($version)
     {
