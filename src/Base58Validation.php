@@ -41,11 +41,10 @@ class Base58Validation extends Validation
     {
         $origbase58 = $base58;
 
-        $chars  = static::$base58Dictionary;
         $return = "0";
         for ($i = 0; $i < strlen($base58); $i++)
         {
-            $current = (string)strpos($chars, $base58[$i]);
+            $current = (string)strpos(static::$base58Dictionary, $base58[$i]);
             $return  = (string)bcmul($return, "58", 0);
             $return  = (string)bcadd($return, $current, 0);
         }
@@ -53,7 +52,7 @@ class Base58Validation extends Validation
         $return = self::encodeHex($return);
 
         //leading zeros
-        for ($i = 0; $i < strlen($origbase58) && $origbase58[$i] == "1"; $i++)
+        for ($i = 0; $i < strlen($origbase58) && $origbase58[$i] == static::$base58Dictionary[0]; $i++)
         {
             $return = "00" . $return;
         }
@@ -70,7 +69,6 @@ class Base58Validation extends Validation
     {
         $orighex = $hex;
 
-        $chars  = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
         $hex    = self::decodeHex($hex);
         $return = "";
         while (bccomp($hex, 0) == 1)
@@ -78,7 +76,7 @@ class Base58Validation extends Validation
             $dv     = (string)bcdiv($hex, "58", 0);
             $rem    = (integer)bcmod($hex, "58");
             $hex    = $dv;
-            $return = $return . $chars[$rem];
+            $return = $return . static::$base58Dictionary[$rem];
         }
         $return = strrev($return);
 
