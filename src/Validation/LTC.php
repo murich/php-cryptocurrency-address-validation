@@ -2,11 +2,11 @@
 
 namespace Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 
+use Merkeleon\PhpCryptocurrencyAddressValidation\Base58Validation;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Utils\Bech32Decoder;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Utils\Bech32Exception;
-use Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 
-class LTC extends Validation
+class LTC extends Base58Validation
 {
 
     const DEPRECATED_ADDRESS_VERSIONS = ['31'];

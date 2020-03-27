@@ -2,9 +2,9 @@
 
 namespace Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 
-use Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
+use Merkeleon\PhpCryptocurrencyAddressValidation\Base58Validation;
 
-class DASH extends Validation
+class DASH extends Base58Validation
 {
     const VERSION_P2PKH = '4C';
     const VERSION_P2SH = '10';
