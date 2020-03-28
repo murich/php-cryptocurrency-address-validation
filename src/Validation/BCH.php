@@ -15,6 +15,7 @@ class BCH extends Base58Validation
 
     public function validate($address)
     {
+        $address = (string)$address;
         try
         {
             $legacy = CashAddress::new2old($address);

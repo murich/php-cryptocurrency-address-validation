@@ -10,6 +10,7 @@ class XRP extends Base58Validation
 
     public function validate($address)
     {
+        $address = (string)$address;
         $hexAddress = static::base58ToHex($address);
         $check = substr($hexAddress, 0, strlen($hexAddress) - 8);
         $check = pack("H*", $check);

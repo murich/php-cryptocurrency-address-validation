@@ -140,6 +140,7 @@ class Base58Validation extends Validation
 
     public function validate($address)
     {
+        $address = (string)$address;
         $this->address = $address;
         $this->determineVersion();
 
