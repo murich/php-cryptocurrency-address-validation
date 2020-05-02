@@ -16,6 +16,7 @@ class BTC extends Base58Validation
 
     public function validate($address)
     {
+        $address = (string)$address;
         $valid = parent::validate($address);
 
         if (!$valid) {
