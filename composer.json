@@ -7,7 +7,9 @@
             "email": "andrey@phpteam.pro"
         }
     ],
-    "require": {},
+    "require": {
+        "spomky-labs/cbor-php": "^2.0"
+    },
     "require-dev": {
         "phpunit/phpunit": "~8.0"
     },
@@ -22,3 +24,4 @@
         }
     }
 }
+
