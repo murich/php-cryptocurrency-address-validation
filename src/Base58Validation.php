@@ -144,19 +144,27 @@ class Base58Validation extends Validation
         $this->address = $address;
         $this->determineVersion();
 
+        $addressLength = strlen($address);
+        for ($i = 0; $i < $addressLength; $i++) {
+            if (strpos(static::$base58Dictionary, $address[$i]) === false) {
+                return false;
+            }
+        }
+
         if (is_null($this->addressVersion))
         {
             return false;
         }
 
         $hexAddress = self::base58ToHex($this->address);
-        $length     = $this->length;
+        $length = $this->length;
         if (!empty($this->lengths[$this->address[0]]))
         {
             $length = $this->lengths[$this->address[0]];
         }
 
-        if (strlen($hexAddress) != $length)
+        $hexAddressLength = strlen($hexAddress);
+        if ($hexAddressLength != $length)
         {
             return false;
         }
@@ -167,11 +175,11 @@ class Base58Validation extends Validation
             return false;
         }
 
-        $check = substr($hexAddress, 0, strlen($hexAddress) - 8);
+        $check = substr($hexAddress, 0, $hexAddressLength - 8);
         $check = pack("H*", $check);
         $check = strtoupper(hash("sha256", hash("sha256", $check, true)));
         $check = substr($check, 0, 8);
 
-        return $check == substr($hexAddress, strlen($hexAddress) - 8);
+        return $check == substr($hexAddress, $hexAddressLength - 8);
     }
 }

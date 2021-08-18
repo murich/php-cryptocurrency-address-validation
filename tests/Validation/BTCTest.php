@@ -25,6 +25,7 @@ class BTCTest extends BaseValidationTestCase
             ['mipcBbFg9gMiCh81Kj8tqqdgoZub1ZJRfn', false],
             ['2MzQwSSnBHWHqSAqtTVQ6v47XtaisrJa1Vc', false],
             ['tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx', false],
+            ['3PpQtDyDza5Sgyo6duza8c4VjnlwA8cVoC', false],
         ];
     }
 }
