@@ -2,10 +2,10 @@
 
 namespace Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 
+use CBOR\ByteStringObject;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Base58Validation;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Utils\Bech32Decoder;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Utils\Bech32Exception;
-use Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
 use CBOR\Decoder;
 use CBOR\OtherObject;
 use CBOR\Tag;
@@ -13,6 +13,12 @@ use CBOR\StringStream;
 
 class ADA extends Base58Validation
 {
+    protected $validLengths = [
+        33, // A
+        66, // D
+    ];
+    protected $validBechPrefix = 'addr';
+
     public function isValidV1($address) {
         try {
             $addressHex = self::base58ToHex($address);
@@ -27,7 +33,6 @@ class ADA extends Base58Validation
             $data = hex2bin($addressHex);
             $stream = new StringStream($data);
             $object = $decoder->decode($stream);
-
             $normalizedData = $object->getNormalizedData();
             if ($object->getMajorType() != 4) {
                 return false;
@@ -38,6 +43,14 @@ class ADA extends Base58Validation
             if (!is_numeric($normalizedData[1])) {
                 return false;
             }
+            if (!$normalizedData[0] instanceof ByteStringObject) {
+                return false;
+            }
+            /** @var ByteStringObject $bs */
+            $bs = $normalizedData[0];
+            if (!in_array($bs->getLength(), $this->validLengths)) {
+                return false;
+            }
             $crcCalculated = crc32($normalizedData[0]->getValue());
             $validCrc = $normalizedData[1];
 
@@ -46,12 +59,13 @@ class ADA extends Base58Validation
             return false;
         }
     }
+
     public function validate($address) {
         $valid = $this->isValidV1($address);
         if (!$valid) {
             // maybe it's a bech32 address
             try {
-                $valid = is_array($decoded = Bech32Decoder::decodeRaw($address)) && 'addr' === $decoded[0];
+                $valid = is_array($decoded = Bech32Decoder::decodeRaw($address)) && $this->validBechPrefix === $decoded[0];
             } catch (Bech32Exception $exception) {}
         }
 
