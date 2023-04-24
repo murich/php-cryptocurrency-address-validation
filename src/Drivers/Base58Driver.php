@@ -11,6 +11,7 @@ use function implode;
 use function pack;
 use function preg_match;
 use function sprintf;
+use function strtolower;
 use function strtoupper;
 use function substr;
 
@@ -27,7 +28,7 @@ abstract class Base58Driver extends AbstractDriver
     protected function getVersion($address): ?string
     {
         $hexString = Base58Decoder::decode($address, static::$base58Alphabet);
-        if ($hexString) {
+        if (!$hexString) {
             return null;
         }
 
@@ -40,7 +41,7 @@ abstract class Base58Driver extends AbstractDriver
         $check = strtoupper($check);
         $check = substr($check, 0, 8);
 
-        $isValid = str_ends_with($hexString, $check);
+        $isValid = str_ends_with($hexString, strtolower($check));
 
         return $isValid ? $version : null;
     }

@@ -17,7 +17,7 @@ class CardanoDriver extends AbstractDriver
     public function match(string $address): bool
     {
         $prefix =  implode('|', array_keys($this->options));
-        $expr = sprintf('/^(%s)[0-9a-z]{38,}$/', $prefix);
+        $expr = sprintf('/^((%s)(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,}))$/', $prefix);
 
         return preg_match($expr, $address) === 1;
     }
@@ -25,9 +25,9 @@ class CardanoDriver extends AbstractDriver
     public function check(string $address): bool
     {
         try {
-            $decoded = (new Bech32Decoder())->decode($address);
+            $decoded = (new Bech32Decoder())->decodeRaw($address);
 
-            return in_array(array_keys($this->options), $decoded[0], true);
+            return array_key_exists($decoded[0], $this->options);
         } catch (Bech32Exception) {
             return false;
         }

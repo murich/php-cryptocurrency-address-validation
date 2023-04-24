@@ -9,7 +9,6 @@ use Merkeleon\PhpCryptocurrencyAddressValidation\Contracts\Driver;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Enums\CurrencyEnum;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Exception\AddressValidationException;
 use function app;
-use function class_exists;
 use function config;
 
 readonly class Validator implements Contracts\Validator
@@ -38,20 +37,29 @@ readonly class Validator implements Contracts\Validator
             return true;
         }
 
-        /** @var Driver $driver */
-        foreach ($drivers as $driver) {
-            if ($driver->match($address)) {
-                return $driver->check($address);
-            }
-        }
-
-        return false;
+        return (bool) $this->getDriver($drivers, $address)?->check($address);
     }
 
     public function validate(?string $address): void
     {
-        if (!$this->isValid($address)) {
-            throw new AddressValidationException($this->chain, $address);
+        if (!$address) {
+            return;
+        }
+
+        $drivers = $this->getDrivers();
+        // if there is no drivers we force address to be valid
+        if (null === $drivers || !$drivers->valid()) {
+            return;
+        }
+
+        $driver = $this->getDriver($drivers, $address);
+
+        if ($driver === null) {
+            throw new AddressValidationException($this->chain, $address, false);
+        }
+
+        if (!$driver->check($address)) {
+            throw new AddressValidationException($this->chain, $address, true);
         }
     }
 
@@ -70,4 +78,15 @@ readonly class Validator implements Contracts\Validator
         return null;
     }
 
+    protected function getDriver(iterable $drivers, string $address): ?Driver
+    {
+        /** @var Driver $driver */
+        foreach ($drivers as $driver) {
+            if ($driver->match($address)) {
+                return $driver;
+            }
+        }
+
+        return null;
+    }
 }

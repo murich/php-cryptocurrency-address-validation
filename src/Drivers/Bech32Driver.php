@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Merkeleon\PhpCryptocurrencyAddressValidation\Drivers;
 
-use Core\Crypto\Bech32;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Utils\Bech32Decoder;
 use Throwable;
 use function array_keys;
