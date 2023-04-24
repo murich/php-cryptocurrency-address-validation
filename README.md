@@ -5,11 +5,10 @@ One day I will add other crypto currencies. Or how about you? :)
 
 ## Usage
 
-
 ```php
-use Merkeleon\PhpCryptocurrencyAddressValidation\Validation;
+use Merkeleon\PhpCryptocurrencyAddressValidation\Enums\CurrencyEnum;use Merkeleon\PhpCryptocurrencyAddressValidation\Validator;
 
-$validator = Validation::make('BTC');
-var_dump($validator->validate('1QLbGuc3WGKKKpLs4pBp9H6jiQ2MgPkXRp'));
+$validator = Validator::make(CurrencyEnum::BITCOIN);
+var_dump($validator->isValid('1QLbGuc3WGKKKpLs4pBp9H6jiQ2MgPkXRp'));
 
 ```
