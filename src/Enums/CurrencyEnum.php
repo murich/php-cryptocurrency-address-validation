@@ -18,7 +18,6 @@ enum CurrencyEnum: string
     case ETHEREUM = 'ethereum';
     case LITECOIN = 'litecoin';
     case RIPPLE = 'ripple';
-    case STELLAR = 'stellar';
     case TRON = 'tron';
     case ZCASH = 'zcash';
 }
