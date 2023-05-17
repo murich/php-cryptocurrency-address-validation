@@ -14,9 +14,6 @@ return [
             ['tbnb' => null]
         ),
     ],
-    CurrencyEnum::BINANCE->value => [
-        new DriverConfig(Drivers\KeccakDriver::class),
-    ],
     CurrencyEnum::BITCOIN_CASH->value => [
         new DriverConfig(
             Drivers\Base32Driver::class,
@@ -38,7 +35,7 @@ return [
         new DriverConfig(
             Drivers\Bech32Driver::class,
             ['bc' => null],
-            ['tb' => null]
+            ['tb' => null, 'bcrt' => null]
         ),
     ],
     CurrencyEnum::CARDANO->value => [
@@ -65,9 +62,6 @@ return [
     CurrencyEnum::EOS->value => [
         new DriverConfig(Drivers\EosDriver::class),
     ],
-    CurrencyEnum::ETHEREUM_CLASSIC->value => [
-        new DriverConfig(Drivers\KeccakDriver::class),
-    ],
     CurrencyEnum::ETHEREUM->value => [
         new DriverConfig(Drivers\KeccakDriver::class),
     ],
@@ -80,6 +74,7 @@ return [
         new DriverConfig(
             Drivers\Bech32Driver::class,
             ['ltc' => null],
+            ['tltc' => null, 'rltc' => null]
         )
     ],
     CurrencyEnum::RIPPLE->value => [
