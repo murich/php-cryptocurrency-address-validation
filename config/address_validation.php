@@ -63,7 +63,7 @@ return [
         new DriverConfig(Drivers\EosDriver::class),
     ],
     CurrencyEnum::ETHEREUM->value => [
-        new DriverConfig(Drivers\KeccakDriver::class),
+        new DriverConfig(Drivers\KeccakStrictDriver::class),
     ],
     CurrencyEnum::LITECOIN->value => [
         new DriverConfig(
