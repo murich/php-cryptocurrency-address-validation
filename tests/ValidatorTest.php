@@ -47,9 +47,6 @@ class ValidatorTest extends TestCase
             'Beacon #4' => [CurrencyEnum::BEACON, 'mainnet', false, 'bnb1nuxna8asq69jf05cldcxpx9ee0m7drd9qz3aru'],
             'Beacon #5' => [CurrencyEnum::BEACON, 'testnet', false, 'bnb1nuxna8asq69jf05cldcxpx9ee0m7drd9qz3aru'],
             //
-            'Binance #1' => [CurrencyEnum::BINANCE, 'mainnet', true, '0x3f5CE5FBFe3E9af3971dD833D26bA9b5C936f0bE'],
-            'Binance #2' => [CurrencyEnum::BINANCE, 'testnet', true, '0x3f5CE5FBFe3E9af3971dD833D26bA9b5C936f0bE'],
-            //
             'BitcoinCash #1' => [CurrencyEnum::BITCOIN_CASH, 'mainnet', true, 'bitcoincash:qp009ldhprp75mgn4kgaw8jvrpadnvg8qst37j42kx'],
             'BitcoinCash #2' => [CurrencyEnum::BITCOIN_CASH, 'mainnet', true, 'bitcoincash:qz7032ylhvxmndkx438pd8kjd7k7zcqxzsf26q0lvr'],
             'BitcoinCash #3' => [CurrencyEnum::BITCOIN_CASH, 'mainnet', true, '32uLhn19ZasD5bsVhLdDthhM37JhJHiEE2'],
@@ -84,11 +81,10 @@ class ValidatorTest extends TestCase
             'Dogecoin #6' => [CurrencyEnum::DOGECOIN, 'testnet', false, 'DFundMr7W8PjB6ZmVwGv1L1WtZ2X3m3KgQ'],
             'Dogecoin #7' => [CurrencyEnum::DOGECOIN, 'mainnet', false, 'n3TZFrdPvwGqfPC7vBb8PGgbFwc1Cnxq9h'],
             //
-            'EthereumClassic #1' => [CurrencyEnum::ETHEREUM_CLASSIC, 'mainnet', true, '0xe80b351948D0b87EE6A53e057A91467d54468D91'],
-            'EthereumClassic #2' => [CurrencyEnum::ETHEREUM_CLASSIC, 'testnet', true, '0x799aD3Ff7Ef43DfD1473F9b8a8C4237c22D8113F'],
-            //
             'Ethereum #1' => [CurrencyEnum::ETHEREUM, 'mainnet', true, '0xe80b351948D0b87EE6A53e057A91467d54468D91'],
             'Ethereum #2' => [CurrencyEnum::ETHEREUM, 'testnet', true, '0x799aD3Ff7Ef43DfD1473F9b8a8C4237c22D8113F'],
+            'Ethereum #3' => [CurrencyEnum::ETHEREUM, 'mainnet', false, '0xe80b351948d0b87ee6a53e057a91467d54468d91'],
+            'Ethereum #4' => [CurrencyEnum::ETHEREUM, 'testnet', false, '0x799ad3ff7ef43dfd1473f9b8a8c4237c22d8113f'],
             //
             'Litecoin #1' => [CurrencyEnum::LITECOIN, 'mainnet', true, 'MF5yqnMuNoiCiCXbZft7iFgLK5BPG5QKbE'],
             'Litecoin #2' => [CurrencyEnum::LITECOIN, 'mainnet', false, '1QLbGuc3WGKKKpLs4pBp9H6jiQ2MgPkXRp'],
