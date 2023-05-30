@@ -3,6 +3,13 @@
 Easy to use PHP Bitcoin and Litecoin address validator.
 One day I will add other crypto currencies. Or how about you? :)
 
+## Installation
+
+=======
+```
+composer require merkeleon/php-cryptocurrency-address-validation
+```
+
 ## Usage
 
 ```php
