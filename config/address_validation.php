@@ -46,7 +46,8 @@ return [
         ),
         new DriverConfig(
             Drivers\CborDriver::class,
-            ['A' => 33, 'D' => 66]
+            ['A' => 33, 'D' => 66],
+            ["2" => 40, "3" => 73],
         )
     ],
     CurrencyEnum::DASHCOIN->value => [
