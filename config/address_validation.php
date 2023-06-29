@@ -44,6 +44,10 @@ return [
             ['addr' => null],
             ['addr_test' => null],
         ),
+        new DriverConfig(
+            Drivers\CborDriver::class,
+            ['A' => 33, 'D' => 66]
+        )
     ],
     CurrencyEnum::DASHCOIN->value => [
         new DriverConfig(
