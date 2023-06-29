@@ -67,6 +67,12 @@ class ValidatorTest extends TestCase
             'Cardano #1' => [CurrencyEnum::CARDANO, 'mainnet', true, 'addr1v9ywm0h3r8cnxrs04gfy7c3s2j44utjyvn5ldjdca0c2ltccgqdes'],
             'Cardano #2' => [CurrencyEnum::CARDANO, 'mainnet', false, 'stake1u9f9v0z5zzlldgx58n8tklphu8mf7h4jvp2j2gddluemnssjfnkzz'],
             'Cardano #3' => [CurrencyEnum::CARDANO, 'mainnet', true, 'addr1qxy3w62dupy9pzmpdfzxz4k240w5vawyagl5m9djqquyymrtm3grn7gpnjh7rwh2dy62hk8639lt6kzn32yxq960usnq9pexvt'],
+            'Cardano #4' => [CurrencyEnum::CARDANO, 'mainnet', true, 'Ae2tdPwUPEYwNguM7TB3dMnZMfZxn1pjGHyGdjaF4mFqZF9L3bj6cdhiH8t'],
+            'Cardano #5' => [CurrencyEnum::CARDANO, 'mainnet', true, 'DdzFFzCqrht2KYLcX8Vu53urCG52NxpgrGQvP9Mcp15Q8BkB9df9GndFDBRjoWTPuNkLW3yeQiFVet1KA7mraEkJ84AK2RwcEh3khs12'],
+
+            'Cardano #6' => [CurrencyEnum::CARDANO, 'testnet', true, '37btjrVyb4KBbrmcxh3qQzswqDB4SCU8L68vYBJshaeYQ8rHVBfrAfuXZNyFHtR8QXUKR4CtytMyX4DwhsPYKKgFSpq8f5KxNz2s6Guqr6c6LzcHck'],
+            'Cardano #7' => [CurrencyEnum::CARDANO, 'testnet', true, '2cWKMJemoBaipAW1NGegM2qWevSgpL9baiizayY4NnTBvxRGyppr2uym7F9eEtRLehFek'],
+            'Cardano #8' => [CurrencyEnum::CARDANO, 'testnet', true, 'addr_test1qzfst6x8f4r47vm4qfeuj7g8r5pgkjnv5cuzjk94u8p7sd3gtlpjssk2fy95k4z5lr48tu48fcqstnzte44d8f8v8vhs9pwu4x'],
             //
             'Dashcoin #1' => [CurrencyEnum::DASHCOIN, 'mainnet', true, 'XpESxaUmonkq8RaLLp46Brx2K39ggQe226'],
             'Dashcoin #2' => [CurrencyEnum::DASHCOIN, 'mainnet', true, 'XmZQkfLtk3xLtbBMenTdaZMxsUBYAsRz1o'],
