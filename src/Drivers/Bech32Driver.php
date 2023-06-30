@@ -10,6 +10,7 @@ use function array_keys;
 use function implode;
 use function preg_match;
 use function sprintf;
+use function strtolower;
 
 class Bech32Driver extends AbstractDriver
 {
@@ -22,6 +23,8 @@ class Bech32Driver extends AbstractDriver
     public function check(string $address): bool
     {
         try {
+            $address = strtolower($address);
+
             $expr = $this->getPattern();
             preg_match($expr, $address, $match);
 
