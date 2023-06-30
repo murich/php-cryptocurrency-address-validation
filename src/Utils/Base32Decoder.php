@@ -131,7 +131,7 @@ class Base32Decoder
      *
      * @return resource
      */
-    protected static function prefixChk(string $prefix)
+    public static function prefixChk(string $prefix)
     {
         $chk = gmp_init(1);
         $length = strlen($prefix);
@@ -139,51 +139,7 @@ class Base32Decoder
             $char = ord($prefix[$i]) & 0x1f;
             $chk = self::bitwiseXor(self::polyModStep($chk), gmp_init($char, 10));
         }
-
-        $chk = self::polyModStep($chk);
-
-        return $chk;
-    }
-
-    /**
-     * @param string $prefix - string prefix
-     * @param  array $words  - 5bit words (array)
-     *
-     * @return string
-     * @throws Base32Exception
-     */
-    public static function encode(string $prefix, array $words): string
-    {
-        if ((strlen($prefix) + 7 + count($words)) > 90) {
-            throw new Base32Exception();
-        }
-
-        $prefix = strtolower($prefix);
-
-        $chk = self::prefixChk($prefix);
-        $result = $prefix . self::SEPARATOR;
-
-        foreach ($words as $iValue) {
-            $x = $iValue;
-            if ($x >> 5 !== 0) {
-                throw new \RuntimeException("Non 5-bit word");
-            }
-            $chk = self::bitwiseXor(self::polyModStep($chk), gmp_init($x));
-            $result .= self::$charset[$x];
-        }
-
-        for ($i = 0; $i < self::$checksumLen; ++$i) {
-            $chk = self::polyModStep($chk);
-        }
-        $chk = self::bitwiseXor($chk, gmp_init(1));
-
-        for ($i = 0; $i < self::$checksumLen; ++$i) {
-            $pos = 5 * (self::$checksumLen - 1 - $i);
-            $v2 = self::bitwiseAnd(self::rightShift($chk, $pos), gmp_init('1f', 16));
-            $result .= self::$charset[(int) gmp_strval($v2, 10)];
-        }
-
-        return $result;
+        return self::polyModStep($chk);
     }
 
     /**
@@ -193,7 +149,7 @@ class Base32Decoder
      * @throws Base32Exception
      * @throws InvalidChecksumException
      */
-    public static function decode(string $string): array
+    public static function decode(string $string, bool $hasPrefix = true): array
     {
         $stringLen = strlen($string);
         if ($stringLen < 8) {
@@ -234,16 +190,15 @@ class Base32Decoder
             throw new Base32Exception("Data contains mixture of higher/lower case characters");
         }
 
-        if ($idxSeparator === -1) {
+        if ($hasPrefix && $idxSeparator === -1) {
             throw new Base32Exception("Missing separator character");
-        } else {
-            if ($idxSeparator === 0) {
-                throw new Base32Exception("Missing prefix");
-            } else {
-                if (($idxSeparator + 7) > $stringLen) {
-                    throw new Base32Exception("Invalid location for separator character");
-                }
-            }
+        }
+        if ($hasPrefix && $idxSeparator === 0) {
+            throw new Base32Exception("Missing prefix");
+        }
+
+        if (($idxSeparator + 7) > $stringLen) {
+            throw new Base32Exception("Invalid location for separator character");
         }
 
         $prefix = "";
@@ -251,7 +206,6 @@ class Base32Decoder
         foreach (array_slice($chars, 0, $idxSeparator) as $byte) {
             $prefix .= pack("C*", $byte);
         }
-
 
         $chk = self::prefixChk($prefix);
 
@@ -266,7 +220,7 @@ class Base32Decoder
             $words[] = $word;
         }
 
-        if (gmp_cmp($chk, gmp_init(1)) !== 0) {
+        if ($hasPrefix && gmp_cmp($chk, gmp_init(1)) !== 0) {
             throw new InvalidChecksumException();
         }
 
