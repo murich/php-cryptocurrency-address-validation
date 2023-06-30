@@ -9,6 +9,7 @@ use CBOR\Decoder;
 use CBOR\TAg;
 use CBOR\StringStream;
 use CBOR\OtherObject;
+use CBOR\Tag\GenericTag;
 use Illuminate\Support\Str;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Utils\Base58Decoder;
 use Throwable;
@@ -25,10 +26,10 @@ class CborDriver extends AbstractDriver
         parent::__construct($options);
 
         $otherObjectManager = new OtherObject\OtherObjectManager();
-        $tagManager = new Tag\TagObjectManager();
-
         $otherObjectManager->add(OtherObject\SimpleObject::class);
-        $tagManager->add(Tag\PositiveBigIntegerTag::class);
+
+        $tagManager = new Tag\TagManager();
+        $tagManager->add(Tag\UnsignedBigIntegerTag::class);
 
         $this->decoder = new Decoder($tagManager, $otherObjectManager);
     }
@@ -54,7 +55,8 @@ class CborDriver extends AbstractDriver
                 return false;
             }
 
-            $normalizedData = $object->getNormalizedData();
+            /** @var array $normalizedData */
+            $normalizedData = $object->normalize();
 
             if (count($normalizedData) !== 2) {
                 return false;
@@ -62,16 +64,19 @@ class CborDriver extends AbstractDriver
             if (!is_numeric($normalizedData[1])) {
                 return false;
             }
-            if (!$normalizedData[0] instanceof ByteStringObject) {
+
+            if (!$normalizedData[0] instanceof GenericTag) {
                 return false;
             }
 
-            $bs = $normalizedData[0];
+            /** @var ByteStringObject $bs */
+            $bs = $normalizedData[0]->getValue();
+
             if (!in_array($bs->getLength(), array_values($this->options), true)) {
                 return false;
             }
 
-            $crcCalculated = crc32($normalizedData[0]->getValue());
+            $crcCalculated = crc32($bs->getValue());
             $validCrc = $normalizedData[1];
 
             return $crcCalculated === (int)$validCrc;
