@@ -17,7 +17,7 @@ class Bech32Driver extends AbstractDriver
     public function match(string $address): bool
     {
         $expr = $this->getPattern();
-        return preg_match($expr, $address) === 1;
+        return preg_match($expr, strtolower($address)) === 1;
     }
 
     public function check(string $address): bool
