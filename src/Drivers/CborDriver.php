@@ -6,10 +6,12 @@ namespace Merkeleon\PhpCryptocurrencyAddressValidation\Drivers;
 
 use CBOR\ByteStringObject;
 use CBOR\Decoder;
-use CBOR\TAg;
 use CBOR\StringStream;
-use CBOR\OtherObject;
+use CBOR\OtherObject\OtherObjectManager;
+use CBOR\OtherObject\SimpleObject;
 use CBOR\Tag\GenericTag;
+use CBOR\Tag\TagManager;
+use CBOR\Tag\UnsignedBigIntegerTag;
 use Illuminate\Support\Str;
 use Merkeleon\PhpCryptocurrencyAddressValidation\Utils\Base58Decoder;
 use Throwable;
@@ -25,11 +27,11 @@ class CborDriver extends AbstractDriver
     {
         parent::__construct($options);
 
-        $otherObjectManager = new OtherObject\OtherObjectManager();
-        $otherObjectManager->add(OtherObject\SimpleObject::class);
+        $otherObjectManager = new OtherObjectManager();
+        $otherObjectManager->add(SimpleObject::class);
 
-        $tagManager = new Tag\TagManager();
-        $tagManager->add(Tag\UnsignedBigIntegerTag::class);
+        $tagManager = new TagManager();
+        $tagManager->add(UnsignedBigIntegerTag::class);
 
         $this->decoder = new Decoder($tagManager, $otherObjectManager);
     }
@@ -49,7 +51,7 @@ class CborDriver extends AbstractDriver
             $stream = new StringStream($data);
 
 
-            /** @var OtherObject\SimpleObject $object */
+            /** @var SimpleObject $object */
             $object = $this->decoder->decode($stream);
             if ($object->getMajorType() !== 4) {
                 return false;
