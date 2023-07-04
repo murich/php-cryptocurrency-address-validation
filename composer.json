@@ -14,6 +14,9 @@
         "laravel/framework": ">=v7.0.0|>=v10.0.0",
         "spomky-labs/cbor-php": "^3.0"
     },
+    "scripts": {
+        "test": "@php vendor/bin/phpunit"
+    },
     "require-dev": {
         "phpunit/phpunit": "~8.0"
     },
