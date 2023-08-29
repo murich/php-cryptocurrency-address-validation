@@ -37,7 +37,7 @@ class Base32Driver extends AbstractDriver
         $address = strtolower($address);
 
         $prefix = implode('|', array_keys($this->options));
-        $pattern = sprintf('/^((%s)?([qp])[a-z0-9]{41})/', $prefix);
+        $pattern = sprintf('/^((%s)?([qp])[a-z0-9]{41,120})/', $prefix);
 
         return preg_match($pattern, $address) === 1;
     }
