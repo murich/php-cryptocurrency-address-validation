@@ -28,7 +28,12 @@ class Bech32Decoder
         -1, 29, -1, 24, 13, 25,  9,  8, 23, -1, 18, 22, 31, 27, 19, -1,
         1,  0,  3, 16, 11, 28, 12, 14,  6,  4,  2, -1, -1, -1, -1, -1
     ];
-
+    public const BECH32_POLY = 1;
+    public const BECH32M_POLY = 0x2bc830a3;
+    private const ALLOWED_POLY = [
+        self::BECH32_POLY,
+        self::BECH32M_POLY,
+    ];
     /**
      * Validates a bech32 string and returns [$hrp, $dataChars] if
      * the conversion was successful. An exception is thrown on invalid
@@ -139,7 +144,7 @@ class Bech32Decoder
         $r = array_merge($expandHrp, $convertedDataChars);
         $poly = $this->polyMod($r, count($r));
 
-        return $poly === 1;
+        return in_array($poly, self::ALLOWED_POLY, true);
     }
 
 
