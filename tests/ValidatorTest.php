@@ -70,6 +70,7 @@ class ValidatorTest extends TestCase
             'Bitcoin #6' => [CurrencyEnum::BITCOIN, 'testnet', false, '1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2'],
             'Bitcoin #7' => [CurrencyEnum::BITCOIN, 'testnet', false, 'bc1q6v096h88xmpl662af0nc7wd3vta56zv6pyccl8'],
             'Bitcoin #8' => [CurrencyEnum::BITCOIN, 'mainnet', true, 'BC1QL2725QLXHGWQ7F7XLJ8363FJCUF25XZ35SWRU5'],
+            'Bitcoin #9' => [CurrencyEnum::BITCOIN, 'mainnet', true, 'bc1p5gyty9x2lrk65yndaeh242zm6xklgrv9nze9477dg0kyv6yvfljq0lqjkh'],
             //
             'Cardano #1' => [CurrencyEnum::CARDANO, 'mainnet', true, 'addr1v9ywm0h3r8cnxrs04gfy7c3s2j44utjyvn5ldjdca0c2ltccgqdes'],
             'Cardano #2' => [CurrencyEnum::CARDANO, 'mainnet', false, 'stake1u9f9v0z5zzlldgx58n8tklphu8mf7h4jvp2j2gddluemnssjfnkzz'],
