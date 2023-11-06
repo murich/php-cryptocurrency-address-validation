@@ -74,7 +74,7 @@ return [
         new DriverConfig(
             Drivers\DefaultBase58Driver::class,
             ['L' => '30', 'M' => '32', '3' => '05'],
-            ['m' => '6F', '2' => 'C4', 'Q' => '3A']
+            ['m' => '6F', 'n' => '6F', '2' => 'C4', 'Q' => '3A']
         ),
         new DriverConfig(
             Drivers\Bech32Driver::class,
