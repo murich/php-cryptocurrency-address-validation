@@ -45,4 +45,13 @@ readonly class DriverConfig
             ?: $this->mainnet
                 ?: [];
     }
+
+    public static function __set_state(array $state): DriverConfig
+    {
+        return new self(
+            $state['driver'],
+            $state['mainnet'],
+            $state['testnet']
+        );
+    }
 }
